@@ -318,7 +318,7 @@ typedef struct {
     char sender[CLUSTER_NAMELEN]; /* Name of the sender node */
 
     /**
-     * wangyang 这里是 cluster_slots / 8  对应着是一个bitmap, char 是一个字节
+     *  这里是 cluster_slots / 8  对应着是一个bitmap, char 是一个字节
      * /8 之后 ，字节中每个bit 都可以代表一个 slot
      */
     unsigned char myslots[CLUSTER_SLOTS/8];

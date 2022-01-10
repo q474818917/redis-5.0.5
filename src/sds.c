@@ -162,7 +162,7 @@ sds sdsempty(void) {
 
 /* Create a new sds string starting from a null terminated C string. */
 /**
- * wangyang 创建sds 字符串
+ *  创建sds 字符串
  * @param init
  * @return
  */
@@ -830,7 +830,7 @@ int sdscmp(const sds s1, const sds s2) {
  * same function but for zero-terminated strings.
  */
 /*
- * wangyang  这里是 sds 的 split 功能
+ *   这里是 sds 的 split 功能
  */
 sds *sdssplitlen(const char *s, ssize_t len, const char *sep, int seplen, int *count) {
     int elements = 0, slots = 5;
@@ -849,7 +849,7 @@ sds *sdssplitlen(const char *s, ssize_t len, const char *sep, int seplen, int *c
     for (j = 0; j < (len-(seplen-1)); j++) {
         /* make sure there is room for the next element and the final one */
         /*
-         * wangyang slots 表示 tokens 数组长度
+         *  slots 表示 tokens 数组长度
          * 如果小于 + 2 比如 5 < 4 + 2 ，那么就会对 下面进行复制
          */
         if (slots < elements+2) {
@@ -863,7 +863,7 @@ sds *sdssplitlen(const char *s, ssize_t len, const char *sep, int seplen, int *c
         /* search the separator */
         if ((seplen == 1 && *(s+j) == sep[0]) || (memcmp(s+j,sep,seplen) == 0)) {
             //
-            tokens[elements] = sdsnewlen(s+start,j-start); //--> wangyang * tokens 是一个数组 从0 开始 计数
+            tokens[elements] = sdsnewlen(s+start,j-start); //-->  * tokens 是一个数组 从0 开始 计数
             //这里会对 s字符串 截取一段长度 对应的字符串内容
 
             if (tokens[elements] == NULL) goto cleanup;

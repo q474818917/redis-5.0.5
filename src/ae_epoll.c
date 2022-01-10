@@ -83,7 +83,7 @@ static void aeApiFree(aeEventLoop *eventLoop) {
 }
 
 /*
- * wangyang **  这里用于 对 fd增加相关事件
+ *  **  这里用于 对 fd增加相关事件
  */
 static int aeApiAddEvent(aeEventLoop *eventLoop, int fd, int mask) {
     aeApiState *state = eventLoop->apidata;
@@ -96,14 +96,14 @@ static int aeApiAddEvent(aeEventLoop *eventLoop, int fd, int mask) {
     ee.events = 0;
     mask |= eventLoop->events[fd].mask; /* Merge old events */ //--> 将多个事件合并
     /**
-     * wangyang ** 这里用于声明 epoll_event 用于处理的事件
+     *  ** 这里用于声明 epoll_event 用于处理的事件
      */
     if (mask & AE_READABLE) ee.events |= EPOLLIN; //读事件
     if (mask & AE_WRITABLE) ee.events |= EPOLLOUT;//写事件
     ee.data.fd = fd; //socket fd
     //socket订阅epoll上指定事件
     /**
-     * wangyang 将相应的 fd 添加到 epoll上
+     *  将相应的 fd 添加到 epoll上
      * 第一个参数是 bind socket ,第二个参数是相应的操作，比如add/mod,第三个操作时客户端socket ,第四个参数是注册的事件
      */
     if (epoll_ctl(state->epfd,op,fd,&ee) == -1) return -1;

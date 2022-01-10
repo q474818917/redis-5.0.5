@@ -73,7 +73,7 @@ typedef struct dictEntry {
 } dictEntry;
 
 /**
- * wangyang  dictType中定义了 相关的操作，使用的是函数指针的方式
+ *   dictType中定义了 相关的操作，使用的是函数指针的方式
  * 比如 hashFunction keyDup keyCompare等函数
  */
 typedef struct dictType {
@@ -92,7 +92,7 @@ typedef struct dictType {
  * implement incremental rehashing, for the old to the new table. */
 //字典的hash表
 /**
- * wangyang 用于整个表
+ *  用于整个表
  */
 typedef struct dictht {
     //hash table 存储数据
@@ -115,7 +115,7 @@ typedef struct dictht {
 
 /**
  * 目录结构
- * wangyang 正常情况下使用
+ *  正常情况下使用
  * 这里用于表示一个 hash 表，两个ht 是因为要用于扩容和缩容使用
  * rehash是用于渐进式rehash 会从0然后逐渐增大，直到将ht[0] 扩展到ht[1]
  * 里面去，然后再讲rehash 设为-1
@@ -125,7 +125,7 @@ typedef struct dictht {
 typedef struct dict {
     //dic表的方法  eg.获取key的hash,比较key...
     /**
-     * wangyang 这会指向一个type结构，里面存放对应的操作函数，
+     *  这会指向一个type结构，里面存放对应的操作函数，
      * 比如 获取一个hash 复制键 销毁键等等
      */
     dictType *type;
@@ -135,7 +135,7 @@ typedef struct dict {
     void *privdata;
     //hash表，一个ht[0]->ht[1]实现rehash
     /**
-     * wangyang 一般来说使用ht[0] ht[1]用于当rehash 的时候使用
+     *  一般来说使用ht[0] ht[1]用于当rehash 的时候使用
      */
     dictht ht[2];
     //hash表中扩容到哪个槽了 -1:表示没有在扩容

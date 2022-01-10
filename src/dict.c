@@ -317,7 +317,7 @@ dictEntry *dictAddRaw(dict *d, void *key, dictEntry **existing)
      * the element already exists. */
     //获取key在字典中的的位置,-1已经存在
     /*
-     * wangyang 会使用 hashFunction 获取相应的 hash值
+     *  会使用 hashFunction 获取相应的 hash值
      * (d)->type->hashFunction(key) 这里是宏定义的方式
      */
     if ((index = _dictKeyIndex(d, key, dictHashKey(d,key), existing)) == -1)

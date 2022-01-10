@@ -648,7 +648,7 @@ typedef struct clientReplyBlock {
  * database. The database number is the 'id' field in the structure. */
 //redis数据库结构
 /**
- * wangyang redis db核心结构
+ *  redis db核心结构
  * 每个db 代表一个数据库 根据redisServer 中dbNum进行创建对应数量的
  */
 typedef struct redisDb {
@@ -736,7 +736,7 @@ typedef struct readyList {
 /* With multiplexing we need to take per-client state.
  * Clients are taken in a linked list. */
 /**
- * wangyang 客户端连接 结构体
+ *  客户端连接 结构体
  */
 typedef struct client {
     //client id
@@ -867,7 +867,7 @@ struct sharedObjectsStruct {
 
 /* ZSETs use a specialized version of Skiplists */
 /**
- * wangyang 跳跃表节点 代表的是一个 节点
+ *  跳跃表节点 代表的是一个 节点
  *
  * 这里跳跃表的结构 是这样的
  *
@@ -1022,7 +1022,7 @@ struct clusterState;
 #define CHILD_INFO_TYPE_AOF 1
 
 /**
- * wangyang ** redis 核心结构
+ *  ** redis 核心结构
  */
 struct redisServer {
     /* General */
@@ -1587,7 +1587,7 @@ typedef void redisCommandProc(client *c);
 typedef int *redisGetKeysProc(struct redisCommand *cmd, robj **argv, int argc, int *numkeys);
 
 /**
- * wangyang redis 命令命令结构体
+ *  redis 命令命令结构体
  *
  */
 struct redisCommand {

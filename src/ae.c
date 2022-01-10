@@ -64,7 +64,7 @@
 //setsize：客户端数量
 /**
  *
-  wangyang set size 是监听的 最大数量
+   set size 是监听的 最大数量
  */
 aeEventLoop *aeCreateEventLoop(int setsize) {
     aeEventLoop *eventLoop;
@@ -146,7 +146,7 @@ void aeStop(aeEventLoop *eventLoop) {
 
 
 /**
- * wangyang 这里是 往el 上 注册相应的事件 fd 表示 文件描述符
+ *  这里是 往el 上 注册相应的事件 fd 表示 文件描述符
  * 比如 某个 client 对应的scoket 那么就可以调用本方法
  * 从数组中 获取相应的 aeFileEvent 然后 注册到 epoll 上，
  * 当有相应的事件触发时，就可以从事件中找到对应的 处理方法 然后执行
@@ -167,9 +167,9 @@ int aeCreateFileEvent(aeEventLoop *eventLoop, int fd, int mask,
         return AE_ERR;
     fe->mask |= mask;
     /**
-     * wangyang 这里用于声明相应的 事件 操作对应的函数
+     *  这里用于声明相应的 事件 操作对应的函数
      */
-    if (mask & AE_READABLE) fe->rfileProc = proc; //--> wangyang ** 这就是 在创建事件时指定 的 相应的proc函数
+    if (mask & AE_READABLE) fe->rfileProc = proc; //-->  ** 这就是 在创建事件时指定 的 相应的proc函数
     if (mask & AE_WRITABLE) fe->wfileProc = proc;
     fe->clientData = clientData;
     if (fd > eventLoop->maxfd)
@@ -461,7 +461,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags)
             eventLoop->aftersleep(eventLoop);
 
         /**
-         * wangyang **
+         *  **
          * 将触发的事件 映射到 events 数组当中, 找到相应的 处理函数 然后进行相应的处理
          */
         for (j = 0; j < numevents; j++) {
@@ -490,7 +490,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags)
              * Fire the readable event if the call sequence is not
              * inverted. */
             if (!invert && fe->mask & mask & AE_READABLE) {
-                fe->rfileProc(eventLoop,fd,fe->clientData,mask); //wangyang ** 处理相应的读事件
+                fe->rfileProc(eventLoop,fd,fe->clientData,mask); // ** 处理相应的读事件
                 fired++;
             }
 
@@ -547,7 +547,7 @@ int aeWait(int fd, int mask, long long milliseconds) {
 }
 
 /**
- * wangyang ** 事件开始循环
+ *  ** 事件开始循环
  * @param eventLoop
  */
 void aeMain(aeEventLoop *eventLoop) {

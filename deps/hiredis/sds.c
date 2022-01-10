@@ -551,7 +551,7 @@ sds sdscatvprintf(sds s, const char *fmt, va_list ap) {
  *
  * s = sdscatprintf(sdsempty(), "... your format ...", args);
  */
-//wangyang 这里使用 c语言变长参数
+// 锟斤拷锟斤拷使锟斤拷 c锟斤拷锟皆变长锟斤拷锟斤拷
 sds sdscatprintf(sds s, const char *fmt, ...) {
     va_list ap;
     char *t;

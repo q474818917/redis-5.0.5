@@ -63,7 +63,7 @@ struct aeEventLoop;
 
 /* Types and data structures */
 /*
- * wangyang 这里是定义的 相关函数类型
+ *  这里是定义的 相关函数类型
  */
 typedef void aeFileProc(struct aeEventLoop *eventLoop, int fd, void *clientData, int mask);
 typedef int aeTimeProc(struct aeEventLoop *eventLoop, long long id, void *clientData);

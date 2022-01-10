@@ -129,7 +129,7 @@ volatile unsigned long lru_clock; /* Server global current LRU time. */
  */
 
 /*
- * wangyang ** 存储所有的命令  在命令里面 混合相应的标志 , 标识相当于进行相应的分类
+ * 存储所有的命令  在命令里面 混合相应的标志 , 标识相当于进行相应的分类
  */
 struct redisCommand redisCommandTable[] = {
 
@@ -430,7 +430,7 @@ err:
     if (!log_to_stdout) close(fd);
 }
 
-//微妙
+//微秒
 /* Return the UNIX time in microseconds */
 long long ustime(void) {
     struct timeval tv;
@@ -498,7 +498,7 @@ int dictSdsKeyCaseCompare(void *privdata, const void *key1,
     DICT_NOTUSED(privdata);
 
     /**
-     * wangyang strcasecmp 用于忽略大小写比较大些 0 相等
+     *  strcasecmp 用于忽略大小写比较大些 0 相等
      */
     return strcasecmp(key1, key2) == 0;
 }
@@ -536,7 +536,7 @@ uint64_t dictSdsHash(const void *key) {
 
 //获取key的hash
 /*
- * wangyang 用于获取key 的 hash value的 函数
+ *  用于获取key 的 hash value的 函数
  */
 uint64_t dictSdsCaseHash(const void *key) {
     return dictGenCaseHashFunction((unsigned char*)key, sdslen((char*)key));
@@ -627,7 +627,7 @@ dictType zsetDictType = {
 
 /* Db->dict, keys are sds strings, vals are Redis objects. */
 /**
- * wangyang ** db 字典类型 dup 指的是复制 双份的意思
+ *  ** db 字典类型 dup 指的是复制 双份的意思
  */
 dictType dbDictType = {
     dictSdsHash,                /* hash function */
@@ -1600,7 +1600,7 @@ void initServerConfig(void) {
     int j;
     //初始化互斥锁
     /**
-     * wangyang
+     *
        这里会创建一个 互斥锁， 然后使用下面函数来使用
        int pthread_mutex_lock(pthread_mutex_t *mutex)
 　　int pthread_mutex_unlock(pthread_mutex_t *mutex)
@@ -1809,7 +1809,7 @@ void initServerConfig(void) {
     server.commands = dictCreate(&commandTableDictType,NULL);
     server.orig_commands = dictCreate(&commandTableDictType,NULL);
     //填充命令字典表
-    populateCommandTable(); //wangyang --> 这里会对 commands 数组进行填充
+    populateCommandTable(); // --> 这里会对 commands 数组进行填充
     server.delCommand = lookupCommandByCString("del");
     server.multiCommand = lookupCommandByCString("multi");
     server.lpushCommand = lookupCommandByCString("lpush");
@@ -2079,7 +2079,7 @@ int listenToPort(int port, int *fds, int *count) {
         } else {
             /* Bind IPv4 address. */
             /**
-             * wangyang  ** 这里会 对相应的 ip 地址 进行 监听
+             *   ** 这里会 对相应的 ip 地址 进行 监听
              */
             fds[*count] = anetTcpServer(server.neterr,port,server.bindaddr[j],
                 server.tcp_backlog);
@@ -2096,7 +2096,7 @@ int listenToPort(int port, int *fds, int *count) {
             return C_ERR;
         }
         anetNonBlock(NULL,fds[*count]);
-        (*count)++; //wangyang 这里会让 count 逐渐增加
+        (*count)++; // 这里会让 count 逐渐增加
     }
     return C_OK;
 }
@@ -2175,7 +2175,7 @@ void initServer(void) {
     /**
      * init server里面 创建 eventLoop 在server.c main里面调用 main循环函数
      *
-     * wangyang ** 这里会 对 setsize 进行相应的设置 10000 * 98, 所以是足够用的
+     *  ** 这里会 对 setsize 进行相应的设置 10000 * 98, 所以是足够用的
      */
     server.el = aeCreateEventLoop(server.maxclients+CONFIG_FDSET_INCR);//创建event loop
     if (server.el == NULL) {
@@ -2189,7 +2189,7 @@ void initServer(void) {
     /* Open the TCP listening socket for the user commands. */
     // 监听指定端口绑定ip
     /**
-     * wangyang 这里会进行初始化
+     *  这里会进行初始化
      *
      * 这里ipfd 是监听的 server 地址 ，会监听 本server 的所有地址
      *
@@ -2280,7 +2280,7 @@ void initServer(void) {
     for (j = 0; j < server.ipfd_count; j++) {
         //注册指定的事件到epoll上
         /*
-         * wangyang 这里将 server socket 注册到 epoll 上
+         *  这里将 server socket 注册到 epoll 上
          *
          * acceptTcpHandler 使用上可以 直接传入一个函数，便是函数指针
          *
@@ -2755,7 +2755,7 @@ int processCommand(client *c) {
     if (server.requirepass && !c->authenticated && c->cmd->proc != authCommand)
     {
         flagTransaction(c);
-        addReply(c,shared.noautherr); //wangyang --> 如果需要认证将 数据写入到 sendbuffer中
+        addReply(c,shared.noautherr); // --> 如果需要认证将 数据写入到 sendbuffer中
         return C_OK;
     }
 
@@ -2805,7 +2805,7 @@ int processCommand(client *c) {
             (c->cmd->flags & CMD_DENYOOM ||
              (c->flags & CLIENT_MULTI && c->cmd->proc != execCommand))) {
             flagTransaction(c);
-            addReply(c, shared.oomerr); // wangyang 添加相应的相应
+            addReply(c, shared.oomerr); //  添加相应的相应
             return C_OK;
         }
     }
@@ -2910,7 +2910,7 @@ int processCommand(client *c) {
         queueMultiCommand(c);
         addReply(c,shared.queued);
     } else {
-        call(c,CMD_CALL_FULL); //wangyang *** 这里真正执行 调用命令
+        call(c,CMD_CALL_FULL); // *** 这里真正执行 调用命令
         c->woff = server.master_repl_offset;
         if (listLength(server.ready_keys))
             handleClientsBlockedOnKeys();
@@ -4265,7 +4265,7 @@ int main(int argc, char **argv) {
     //判断是否哨兵模式
     server.sentinel_mode = checkForSentinelMode(argc,argv);
     //初始化配置
-    //wangyang 比较重要
+    // 比较重要
     initServerConfig();
     //redis module初始化
     moduleInitModulesSystem();
@@ -4390,7 +4390,7 @@ int main(int argc, char **argv) {
     //初始化server
 
     /**
-     * wangyang 初始化 服务
+     *  初始化 服务
      */
     initServer();
     if (background || server.pidfile)
@@ -4434,7 +4434,7 @@ int main(int argc, char **argv) {
     aeSetBeforeSleepProc(server.el,beforeSleep);
     aeSetAfterSleepProc(server.el,afterSleep);
     /**
-     * wangyang 开启 事件主循环
+     *  开启 事件主循环
      */
     aeMain(server.el);
     aeDeleteEventLoop(server.el);

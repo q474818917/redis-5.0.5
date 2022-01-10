@@ -58,7 +58,7 @@ void zlibc_free(void *ptr) {
 
 /* Explicitly override malloc/free etc when using tcmalloc. */
 /**
- * wangyang 这里首先判断 相关的malloc 函数 首先使用tc_malloc函数 如果
+ *  这里首先判断 相关的malloc 函数 首先使用tc_malloc函数 如果
  * 有 jemalloc 那么使用 jemalloc 函数
  *
  * redis 的内存分配 还是 需要每次使用的时候 使用os 申请分配
@@ -117,7 +117,7 @@ static void zmalloc_default_oom(size_t size) {
 static void (*zmalloc_oom_handler)(size_t) = zmalloc_default_oom;
 
 /*
- * wangyang  zmalloc 分配一个 固定大小的 内存空间
+ *   zmalloc 分配一个 固定大小的 内存空间
  * todo 具体怎么分配 需要了解清楚
  */
 void *zmalloc(size_t size) {

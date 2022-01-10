@@ -45,7 +45,7 @@ typedef struct listIter {
 } listIter;
 
 /**
- * wangyang redis ×Ô¼º·â×°µÄ list ½á¹¹£¬ÊÇÁ´±í½á¹¹
+ *  redis ï¿½Ô¼ï¿½ï¿½ï¿½×°ï¿½ï¿½ list ï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹¹
  */
 typedef struct list {
     listNode *head;

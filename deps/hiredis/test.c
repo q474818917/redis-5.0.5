@@ -20,10 +20,10 @@ enum connection_type {
 };
 
 /**
- * wangyang ÅäÖÃ¶ÔÏó
+ *  ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½
  */
 struct config {
-    //Á¬½ÓÀàĞÍ tcp  unix fd
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tcp  unix fd
     enum connection_type type;
 
     struct {
